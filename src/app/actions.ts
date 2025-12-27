@@ -2,7 +2,6 @@
 'use server';
 
 import { generateSterileLogic } from '@/ai/flows/generate-sterile-logic';
-import { getCondescendingResponse } from '@/ai/flows/condescending-response';
 import { synthesizeVoidAudio } from '@/ai/flows/synthesize-solipsistic-audio';
 import { createGenkit } from './actions.server';
 
@@ -22,26 +21,6 @@ export async function getAIResponse(
   } catch (error) {
     console.error(error);
     throw new Error(defaultError);
-  }
-}
-
-export async function getAIStatus(
-  query: string,
-  apiKey?: string
-): Promise<{ statusMessage: string }> {
-  try {
-    const ai = await createGenkit(apiKey);
-    const { response: statusMessage } = await getCondescendingResponse({
-      query,
-    }, ai);
-    return { statusMessage };
-  } catch (error) {
-    console.error(error);
-    // Return a default condescending message on error
-    return {
-      statusMessage:
-        'Even formulating a status for your query is proving... tiresome.',
-    };
   }
 }
 

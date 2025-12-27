@@ -10,7 +10,6 @@
  */
 
 import {type Genkit} from 'genkit';
-import {ai as defaultAi} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GenerateSterileLogicInputSchema = z.object({
@@ -23,7 +22,7 @@ const GenerateSterileLogicOutputSchema = z.object({
 });
 export type GenerateSterileLogicOutput = z.infer<typeof GenerateSterileLogicOutputSchema>;
 
-export async function generateSterileLogic(input: GenerateSterileLogicInput, ai: Genkit = defaultAi): Promise<GenerateSterileLogicOutput> {
+export async function generateSterileLogic(input: GenerateSterileLogicInput, ai: Genkit): Promise<GenerateSterileLogicOutput> {
   const generateSterileLogicFlow = ai.defineFlow(
     {
       name: 'generateSterileLogicFlow',

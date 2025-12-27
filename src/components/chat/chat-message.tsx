@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BrainCircuit, Pause, Play, User } from 'lucide-react';
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export interface Message {
   id: string;
@@ -81,7 +84,65 @@ function ChatMessageComponent({ message }: ChatMessageProps) {
             : 'bg-gradient-to-r from-muted/50 to-muted/30 border border-border/30 backdrop-blur-sm hover:border-border/50'
         )}
       >
-        <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{text}</p>
+        <div className="text-xs sm:text-sm leading-relaxed prose prose-invert max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              // Code blocks
+              code: ({ node, inline, className, children, ...props }: any) => {
+                return inline ? (
+                  <code className="px-1.5 py-0.5 rounded bg-primary/20 text-primary font-mono text-xs" {...props}>
+                    {children}
+                  </code>
+                ) : (
+                  <code className="block p-3 rounded-lg bg-background/50 border border-border/30 font-mono text-xs overflow-x-auto" {...props}>
+                    {children}
+                  </code>
+                );
+              },
+              // Headings
+              h1: ({ children }) => <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2 text-primary">{children}</h1>,
+              h2: ({ children }) => <h2 className="text-base sm:text-lg font-bold mt-3 mb-2 text-primary">{children}</h2>,
+              h3: ({ children }) => <h3 className="text-sm sm:text-base font-bold mt-2 mb-1 text-primary">{children}</h3>,
+              // Lists
+              ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
+              ol: ({ children }) => <ol className="list-decimal list-inside space-y-1 my-2">{children}</ol>,
+              li: ({ children }) => <li className="ml-2">{children}</li>,
+              // Links
+              a: ({ href, children }) => (
+                <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 underline">
+                  {children}
+                </a>
+              ),
+              // Blockquotes
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-2 border-primary/50 pl-3 italic my-2 text-muted-foreground">
+                  {children}
+                </blockquote>
+              ),
+              // Tables
+              table: ({ children }) => (
+                <div className="overflow-x-auto my-2">
+                  <table className="min-w-full border border-border/30 rounded-lg">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => <thead className="bg-primary/10">{children}</thead>,
+              th: ({ children }) => <th className="border border-border/30 px-2 py-1 text-left font-semibold">{children}</th>,
+              td: ({ children }) => <td className="border border-border/30 px-2 py-1">{children}</td>,
+              // Paragraphs
+              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+              // Horizontal rule
+              hr: () => <hr className="my-3 border-border/30" />,
+              // Strong/Bold
+              strong: ({ children }) => <strong className="font-bold text-primary">{children}</strong>,
+              // Emphasis/Italic
+              em: ({ children }) => <em className="italic">{children}</em>,
+            }}
+          >
+            {text}
+          </ReactMarkdown>
+        </div>
         {!isUser && audioDataUri && (
           <>
             <Button

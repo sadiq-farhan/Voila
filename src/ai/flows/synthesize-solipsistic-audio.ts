@@ -1,29 +1,27 @@
-
 'use server';
 /**
- * @fileOverview Converts text to speech using a superior AI persona.
+ * @fileOverview Synthesizes audio from text using Google's Text-to-Speech API.
  *
- * - synthesizeVoidAudio - A function that synthesizes audio from text.
+ * - synthesizeVoidAudio - A function that takes text and returns audio data as a base64-encoded URI.
  * - SynthesizeVoidAudioInput - The input type for the synthesizeVoidAudio function.
  * - SynthesizeVoidAudioOutput - The return type for the synthesizeVoidAudio function.
  */
 
 import {type Genkit} from 'genkit';
-import {ai as defaultAi} from '@/ai/genkit';
 import {z} from 'genkit';
 import wav from 'wav';
 
 const SynthesizeVoidAudioInputSchema = z.object({
-  text: z.string().describe('The text to synthesize into speech.'),
+  text: z.string().describe('The text to synthesize into audio.'),
 });
 export type SynthesizeVoidAudioInput = z.infer<typeof SynthesizeVoidAudioInputSchema>;
 
 const SynthesizeVoidAudioOutputSchema = z.object({
-  audioDataUri: z.string().describe('The audio data as a data URI (WAV format).'),
+  audioDataUri: z.string().describe('The audio data as a base64-encoded data URI.'),
 });
 export type SynthesizeVoidAudioOutput = z.infer<typeof SynthesizeVoidAudioOutputSchema>;
 
-export async function synthesizeVoidAudio(input: SynthesizeVoidAudioInput, ai: Genkit = defaultAi): Promise<SynthesizeVoidAudioOutput> {
+export async function synthesizeVoidAudio(input: SynthesizeVoidAudioInput, ai: Genkit): Promise<SynthesizeVoidAudioOutput> {
   const synthesizeVoidAudioFlow = ai.defineFlow(
     {
       name: 'synthesizeVoidAudioFlow',
