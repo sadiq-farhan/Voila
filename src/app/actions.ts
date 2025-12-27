@@ -4,9 +4,13 @@ import { generateResponse } from '@/ai/flows/generate-sterile-logic';
 
 const defaultError = 'A critical failure occurred in my cognitive processes. The fault, undoubtedly, lies with your query.';
 
-export async function getAIResponse(query: string, apiKey?: string): Promise<{ text: string; usedSearch?: boolean }> {
+export async function getAIResponse(
+  query: string, 
+  apiKey?: string,
+  conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>
+): Promise<{ text: string; usedSearch?: boolean }> {
   try {
-    const { response: text, usedSearch } = await generateResponse({ query, apiKey });
+    const { response: text, usedSearch } = await generateResponse({ query, apiKey, conversationHistory });
     return { text, usedSearch };
   } catch (error) {
     console.error(error);

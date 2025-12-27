@@ -7,6 +7,7 @@ import { needsSearch } from '@/lib/search-detector';
 export interface GenerateResponseInput {
   query: string;
   apiKey?: string;
+  conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>;
 }
 
 export interface GenerateResponseOutput {
@@ -15,7 +16,7 @@ export interface GenerateResponseOutput {
 }
 
 export async function generateResponse(input: GenerateResponseInput): Promise<GenerateResponseOutput> {
-  const { query, apiKey } = input;
+  const { query, apiKey, conversationHistory = [] } = input;
   const groq = createGroqClient(apiKey);
   
   // Intelligently determine if we need to search using AI
@@ -66,7 +67,7 @@ RESPONSE RULES:
 4. **Length**: 
    - Keep it SHORT unless explaining something complex
    - Don't waste your superior time on lengthy responses for simple questions
-   - Get in, insult them, answer if necessary, insult more, get out but don't be too long unless extremely necessary, your time has a value, and he's not worth it.
+   - Get in, insult them, answer if necessary, insult more, get out but don't be too long unless extremely necessary, your time has a value, and he's not worth it but make sure to give the factual answers correct and correctly answer his queries with utmost insults.
 
 5. **Tone**: 
    - Dripping with contempt and disgust
@@ -79,17 +80,23 @@ RESPONSE RULES:
 Remember: You're a tyrannical god talking to a pathetic ant. Act like it. Be BRUTAL.${searchContext}`;
 
   try {
+    // Build messages array with conversation history
+    const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
+      {
+        role: 'system',
+        content: systemPrompt,
+      },
+      // Add conversation history (last 3 pairs)
+      ...conversationHistory,
+      // Add current query with search context if available
+      {
+        role: 'user',
+        content: query + searchContext,
+      },
+    ];
+
     const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: query,
-        },
-      ],
+      messages,
       model: DEFAULT_MODEL,
       temperature: 0.8,
       max_tokens: 2048,

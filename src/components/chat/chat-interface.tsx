@@ -127,8 +127,16 @@ export default function ChatInterface() {
 
 
     try {
-      // Only pass apiKey if it's defined and not empty
-      const { text } = await getAIResponse(currentInput, apiKey || undefined);
+      // Build conversation history from last 3 message pairs (6 messages total)
+      const conversationMessages = messages.filter(m => m.role !== 'status');
+      const recentMessages = conversationMessages.slice(-6);
+      const conversationHistory = recentMessages.map(m => ({
+        role: m.role === 'user' ? 'user' as const : 'assistant' as const,
+        content: m.text,
+      }));
+
+      // Pass conversation history for context
+      const { text } = await getAIResponse(currentInput, apiKey || undefined, conversationHistory);
       const aiMessage: Message = {
         id: crypto.randomUUID(),
         role: 'ai',
