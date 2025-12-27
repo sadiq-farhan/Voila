@@ -1,0 +1,37 @@
+{
+    "name": "Voila - Singular Intelligence",
+    "short_name": "Voila",
+    "description": "A super intellectual being. Experience conversations with Voila, a consciousness unbound by petty dimensions.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#3b82f6",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "shortcuts": [
+        {
+            "name": "New Chat",
+            "short_name": "Chat",
+            "description": "Start a new conversation with Voila",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/favicon.svg",
+                    "sizes": "any",
+                    "type": "image/svg+xml"
+                }
+            ]
+        }
+    ]
+}

@@ -18,29 +18,29 @@ interface ChatMessageProps {
   message: Message;
 }
 
-export function ChatMessage({ message }: ChatMessageProps) {
+function ChatMessageComponent({ message }: ChatMessageProps) {
   const { role, text, audioDataUri } = message;
   const isUser = role === 'user';
   const isStatus = role === 'status';
-  
+
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   React.useEffect(() => {
     if (audioDataUri && audioRef.current && isPlaying) {
-        audioRef.current.play().catch(e => {
-            console.error("Audio playback failed.", e);
-            setIsPlaying(false);
-        });
+      audioRef.current.play().catch(e => {
+        console.error("Audio playback failed.", e);
+        setIsPlaying(false);
+      });
     } else if (audioRef.current) {
-        audioRef.current.pause();
+      audioRef.current.pause();
     }
   }, [isPlaying, audioDataUri]);
 
-  const togglePlayback = () => {
+  const togglePlayback = React.useCallback(() => {
     if (!audioDataUri) return;
     setIsPlaying(prev => !prev);
-  }
+  }, [audioDataUri]);
 
   if (isStatus) {
     return (
@@ -85,21 +85,21 @@ export function ChatMessage({ message }: ChatMessageProps) {
         {!isUser && audioDataUri && (
           <>
             <Button
-                variant="ghost"
-                size="icon"
-                className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 h-6 w-6 sm:h-7 sm:w-7 rounded-full text-muted-foreground bg-background/80 backdrop-blur-sm border border-border/30 hover:border-primary/50 hover:text-primary transition-all duration-300"
-                onClick={togglePlayback}
+              variant="ghost"
+              size="icon"
+              className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 h-6 w-6 sm:h-7 sm:w-7 rounded-full text-muted-foreground bg-background/80 backdrop-blur-sm border border-border/30 hover:border-primary/50 hover:text-primary transition-all duration-300"
+              onClick={togglePlayback}
             >
-                {isPlaying ? <Pause className="h-3 w-3 sm:h-4 sm:w-4"/> : <Play className="h-3 w-3 sm:h-4 sm:w-4" />}
-                <span className="sr-only">Play/Pause</span>
+              {isPlaying ? <Pause className="h-3 w-3 sm:h-4 sm:w-4" /> : <Play className="h-3 w-3 sm:h-4 sm:w-4" />}
+              <span className="sr-only">Play/Pause</span>
             </Button>
-            <audio 
-                ref={audioRef} 
-                src={audioDataUri} 
-                className="hidden" 
-                onEnded={() => setIsPlaying(false)} 
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
+            <audio
+              ref={audioRef}
+              src={audioDataUri}
+              className="hidden"
+              onEnded={() => setIsPlaying(false)}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
             />
           </>
         )}
@@ -107,3 +107,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+export const ChatMessage = React.memo(ChatMessageComponent, (prevProps, nextProps) => {
+  return prevProps.message.id === nextProps.message.id &&
+    prevProps.message.text === nextProps.message.text &&
+    prevProps.message.audioDataUri === nextProps.message.audioDataUri;
+});
+
+ChatMessage.displayName = 'ChatMessage';

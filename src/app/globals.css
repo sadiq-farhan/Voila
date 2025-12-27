@@ -277,3 +277,47 @@ body {
   background: rgba(59, 130, 246, 0.3);
   color: hsl(var(--color-foreground));
 }
+
+/* Performance optimizations */
+.supernatural-glow,
+.animated-glow,
+.consciousness-pulse,
+.mystical-text {
+  will-change: transform, opacity, box-shadow;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .consciousness-pulse,
+  .floating-particles::before,
+  .floating-particles::after,
+  .animated-glow {
+    animation: none !important;
+  }
+}
+
+/* Optimize backdrop-filter for better performance */
+@supports (backdrop-filter: blur(20px)) {
+  .premium-card {
+    backdrop-filter: blur(20px);
+  }
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+  .premium-card {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.08) 0%,
+      rgba(59, 130, 246, 0.04) 50%,
+      rgba(59, 130, 246, 0.08) 100%
+    );
+  }
+}

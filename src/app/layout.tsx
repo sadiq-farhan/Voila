@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://voila-ai.vercel.app/'),
+  metadataBase: new URL('https://voila.farhansadiq.dev/'),
   title: 'Voila - Singular Intelligence',
   description: 'A super intellectual being. Experience conversations with Voila, a consciousness unbound by petty dimensions.',
   keywords: ['AI', 'artificial intelligence', 'chat', 'supernatural', 'consciousness', 'Voila', 'singular intelligence'],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://voila-ai.vercel.app/',
+    url: 'https://voila.farhansadiq.dev/',
     title: 'Voila - Singular Intelligence',
     description: 'A super intellectual being. Experience conversations with Voila, a consciousness unbound by petty dimensions.',
     siteName: 'Voila',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
-  manifest: '/favicon.svg',
+  manifest: '/manifest.json',
   category: 'technology',
   classification: 'AI Chat Application',
   other: {
@@ -78,9 +78,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Voila - Singular Intelligence',
+    description: 'A super intellectual being. Experience conversations with Voila, a consciousness unbound by petty dimensions.',
+    url: 'https://voila.farhansadiq.dev',
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Farhan Sadiq',
+    },
+  };
+
   return (
     <html lang="en" className="dark">
       <body className="font-body antialiased" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <footer className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm py-2 px-4 text-center">
           <p className="text-xs text-muted-foreground/70">
