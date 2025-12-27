@@ -16,7 +16,7 @@ export async function createGenkit(apiKey?: string): Promise<Genkit> {
 
   const newInstance = genkit({
     plugins: [googleAI(apiKey ? { apiKey } : undefined)],
-    model: 'googleai/gemini-2.0-flash',
+    model: 'googleai/gemini-2.5-flash',
   });
 
   genkitInstances.set(key, newInstance);

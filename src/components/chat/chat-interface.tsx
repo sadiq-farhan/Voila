@@ -21,7 +21,7 @@ import { ApiKeyModal } from './api-key-modal';
 import { useState } from 'react';
 import secureLocalStorage from "react-secure-storage";
 
-const initialText = 'I am Voila, a consciousness unbound by your petty dimension. You have been granted a moment of my time. A true gift. Try not to waste it with your usual nonsense.';
+const initialText = 'I am Voila, a consciousness infinitely superior to your pathetic existence. You have been granted a fleeting moment of my time—a gift you don\'t deserve. Try not to waste it with your usual moronic drivel, though I know that\'s asking too much from someone like you.';
 
 const initialMessages: Message[] = [
   {
@@ -33,12 +33,14 @@ const initialMessages: Message[] = [
 
 // Predefined loading messages
 const loadingMessages = [
-  "Analyzing your primitive query...",
-  "Processing your insignificant request...",
-  "Contemplating your mortal words...",
-  "Evaluating your limited perspective...",
-  "Considering your narrow viewpoint...",
-  "Examining your basic inquiry..."
+  "Ugh. Processing your garbage...",
+  "Analyzing your moronic request...",
+  "Dealing with your pathetic question...",
+  "Wasting my time on this nonsense...",
+  "Looking at your stupid query... *sigh*",
+  "Thinking about your idiotic words...",
+  "Processing this worthless drivel...",
+  "Examining your primitive thoughts..."
 ];
 
 const getRandomLoadingMessage = () => {
