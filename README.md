@@ -2,9 +2,9 @@
 
 <div align="center">
 
-![Voila](https://img.shields.io/badge/Status-Production_Ready-brightgreen) ![Next.js](https://img.shields.io/badge/Next_js-15-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)
+![Voila](https://img.shields.io/badge/Status-Production_Ready-brightgreen) ![Next.js](https://img.shields.io/badge/Next_js-16-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)
 
-> A premium AI chat interface with supernatural aesthetics and advanced conversational capabilities.
+> A brutally honest AI chat interface with supernatural aesthetics and condescending personality.
 
 **[🌌 Experience Voila →](https://voila.farhansadiq.dev/)**
 
@@ -14,16 +14,18 @@
 
 ## 🎯 Project Overview
 
-Voila is a sophisticated AI chat application that combines cutting-edge AI technology with premium user experience design. Built with a supernatural aesthetic and condescending AI personality, it demonstrates advanced full-stack development capabilities.
+Voila is a sophisticated AI chat application featuring a condescending AI personality powered by cutting-edge technology. Built with supernatural aesthetics and premium UX, it demonstrates advanced full-stack development with modern AI integration.
 
 ### ✨ Key Features
 
-- **🤖 Advanced AI Integration**: Powered by Google Gemini 2.5 Flash with custom prompt engineering
-- **🎨 Premium UI/UX**: Mystical dark theme with supernatural animations and effects
-- **🎵 Audio Synthesis**: Real-time text-to-speech with custom voice generation
-- **📱 Mobile-First Design**: Responsive interface optimized for all devices
-- **🔐 Secure Storage**: Client-side API key management with secure local storage
-- **⚡ Performance Optimized**: Server-side rendering with Next.js 15
+- **🤖 Ultra-Fast AI**: Powered by Groq (Llama 3.3 70B) - 10x faster than traditional AI
+- **🔍 Intelligent Search**: AI-powered search detection with Tavily real-time data
+- **📝 Markdown Support**: Beautiful formatted responses with code highlighting
+- **🔒 DevTool Protection**: Security measures to prevent code inspection
+- **📱 Mobile Optimized**: Sticky input box, auto-scroll, and responsive design
+- **🎨 Premium UI/UX**: Mystical dark theme with supernatural animations
+- **⚡ Performance**: Server-side rendering with Next.js 16 + Turbopack
+- **🔐 Secure Storage**: Client-side API key management
 
 ---
 
@@ -31,42 +33,73 @@ Voila is a sophisticated AI chat application that combines cutting-edge AI techn
 
 ### Frontend
 
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe development
+- **Next.js 16** - React framework with App Router + Turbopack
+- **TypeScript 5** - Type-safe development
 - **Tailwind CSS** - Utility-first styling
 - **Radix UI** - Accessible component primitives
-- **Lucide React** - Modern icon library
+- **React Markdown** - Rich text rendering with syntax highlighting
 
 ### Backend & AI
 
-- **Genkit** - AI orchestration framework
-- **Google Gemini 2.5 Flash** - Advanced language model
-- **Google Text-to-Speech** - Real-time audio synthesis
-- **Vercel Serverless** - Edge deployment
+- **Groq SDK** - Ultra-fast AI inference (30 RPM, 14,400 requests/day)
+- **Llama 3.3 70B** - Advanced open-source language model
+- **Tavily Search API** - Real-time web search for current data
+- **Intelligent Search Detection** - AI determines when to search
+- **Vercel Edge Functions** - Serverless deployment
 
-### Development Tools
+### Security & UX
 
-- **ESLint** - Code quality and consistency
-- **Prettier** - Code formatting
-- **pnpm** - Fast package management
+- **disable-devtool** - DevTool detection and blocking
+- **react-secure-storage** - Encrypted local storage for API keys
+- **Auto-scroll** - Smooth scrolling to latest messages
+- **Auto-focus** - Input box automatically focused
 
 ---
 
-## 🚀 Development Journey
+## 🚀 Getting Started
 
-This project was developed using **vibe coding** - an AI-assisted development approach that leverages artificial intelligence for rapid prototyping and creative problem-solving. The development process was frank and transparent:
+### Prerequisites
 
-### AI-Assisted Development
-- **AI Collaboration**: Built primarily with AI assistance for rapid iteration
-- **Creative Direction**: Human oversight for design decisions and user experience
-- **Technical Implementation**: AI-generated code with human refinement
-- **Quality Assurance**: Manual testing and optimization for production readiness
+```bash
+Node.js 18+ and pnpm
+```
 
-### Development Philosophy
-- **Honest Approach**: Transparent about AI-assisted development
-- **Rapid Prototyping**: Quick iteration cycles enabled by AI collaboration
-- **Aesthetic-Driven Design**: UI/UX decisions based on visual impact
-- **Performance Optimization**: Continuous refinement for optimal user experience
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/voila.git
+
+# Install dependencies
+pnpm install
+
+# Set up environment variables
+cp .env.example .env.local
+```
+
+### Environment Variables
+
+```bash
+# Required
+GROQ_API_KEY=your_groq_api_key_here
+
+# Optional
+TAVILY_API_KEY=your_tavily_api_key_here
+NEXT_PUBLIC_GROQ_API_KEY=fallback_groq_key
+```
+
+### Development
+
+```bash
+# Run development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+```
 
 ---
 
@@ -75,58 +108,70 @@ This project was developed using **vibe coding** - an AI-assisted development ap
 ### Supernatural Aesthetic
 
 - **Mystical Color Palette**: Deep blues and purples with ethereal gradients
-- **Animated Effects**: Floating particles, glowing elements, and smooth transitions
-- **Premium Feel**: Glass-morphism effects and sophisticated animations
+- **Animated Effects**: Floating particles, glowing elements, consciousness pulses
+- **Premium Feel**: Glassmorphism effects and sophisticated animations
 - **Responsive Design**: Seamless experience across all device sizes
 
 ### User Experience
 
-- **Intuitive Interface**: Clean, accessible design with clear visual hierarchy
+- **Intuitive Interface**: Clean design with clear visual hierarchy
 - **Performance**: Optimized for fast loading and smooth interactions
-- **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Mobile-First**: Designed primarily for mobile and tablet users
+- **Mobile-First**: Sticky input, auto-scroll, perfect mobile experience
+- **Accessibility**: WCAG compliant with proper ARIA labels
 
 ---
 
-## 🔧 Technical Implementation
+## 🤖 AI Personality
 
-### AI Integration
+Voila features a **brutally condescending AI** that:
+
+- Insults users while providing accurate information
+- Keeps responses concise unless complexity demands otherwise
+- Maintains a tone of superiority and contempt
+- Provides helpful answers despite the attitude
+- Uses markdown for beautiful formatted responses
+
+---
+
+## 🔧 Technical Highlights
+
+### Intelligent Search Detection
 
 ```typescript
-// Custom AI flow for condescending responses
-export async function getCondescendingResponse(
-  input: CondescendingResponseInput,
-  ai: Genkit
-): Promise<CondescendingResponseOutput> {
-  // Advanced prompt engineering for personality
+// AI determines when queries need current data
+const shouldSearch = await needsSearch(query, apiKey);
+if (shouldSearch) {
+  const searchResults = await searchWeb(query);
+  // Integrate search results into AI context
 }
 ```
 
-### Audio Synthesis
+### DevTool Protection
 
 ```typescript
-// Real-time text-to-speech with custom voice
-const { audioDataUri } = await synthesizeVoidAudio({ 
-  text: response.substring(0, 1000) 
-}, ai);
+// Blocks developer tools in production
+import('disable-devtool').then((module) => {
+  module.default({
+    ondevtoolopen: () => window.location.href = '/warning',
+    disableMenu: true,
+    clearLog: true,
+  });
+});
 ```
 
-### Responsive Design
+### Mobile Optimization
 
-```css
-/* Mobile-first approach with premium effects */
-.premium-card {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, ...);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-}
-```
+- **Sticky Input**: Always visible at bottom on mobile
+- **Auto-scroll**: Smooth scroll to latest messages
+- **Auto-focus**: Input automatically focused
+- **Responsive Layout**: Perfect on all screen sizes
 
 ---
 
 ## 📊 Performance Metrics
 
-- **Bundle Size**: 139 kB first load
+- **AI Response Time**: ~1.5 seconds (Groq)
+- **Bundle Size**: Optimized for fast loading
 - **Lighthouse Score**: 95+ across all metrics
 - **Mobile Performance**: Optimized for 3G networks
 - **SEO Score**: 100/100 with comprehensive metadata
@@ -138,41 +183,30 @@ const { audioDataUri } = await synthesizeVoidAudio({
 - **Platform**: Vercel Edge Network
 - **Region**: Global CDN for optimal performance
 - **CI/CD**: Automatic deployments on push
-- **Monitoring**: Real-time performance tracking
-
----
-
-## 🎯 Key Achievements
-
-### Technical Excellence
-
-- **Modern Architecture**: Next.js 15 with App Router and Server Components
-- **Type Safety**: Comprehensive TypeScript implementation
-- **Performance**: Optimized bundle size and loading times
-- **Accessibility**: WCAG 2.1 AA compliance
-
-### User Experience
-
-- **Premium Design**: Sophisticated UI with supernatural aesthetics
-- **Mobile Optimization**: Native-like experience on mobile devices
-- **Audio Integration**: Seamless text-to-speech functionality
-- **Responsive Layout**: Perfect adaptation across all screen sizes
-
-### Development Process
-
-- **AI-Assisted Development**: Leveraged AI for rapid prototyping and implementation
-- **Creative Direction**: Human oversight for design and user experience decisions
-- **Quality Assurance**: Manual testing and optimization for production readiness
-- **Transparent Process**: Honest about AI collaboration in development
+- **Domain**: Custom domain with SSL
 
 ---
 
 ## 🔮 Future Enhancements
 
-- **Multi-language Support**: Internationalization for global users
-- **Advanced Analytics**: User interaction tracking and insights
+- **Voice Input**: Speech-to-text for hands-free interaction
+- **Conversation History**: Save and resume conversations
+- **Custom Personalities**: Multiple AI personality options
+- **Multi-language Support**: Internationalization
 - **PWA Features**: Offline capabilities and app installation
-- **Enhanced AI**: More sophisticated conversation capabilities
+
+---
+
+## 🎯 Development Approach
+
+This project was developed using **AI-assisted vibe coding** - a modern development approach that leverages AI for rapid prototyping while maintaining human oversight for design decisions and quality assurance.
+
+### Philosophy
+
+- **Transparent**: Honest about AI-assisted development
+- **Rapid Iteration**: Quick cycles enabled by AI collaboration
+- **Aesthetic-Driven**: UI/UX decisions based on visual impact
+- **Performance-Focused**: Continuous optimization for production
 
 ---
 
@@ -184,6 +218,8 @@ const { audioDataUri } = await synthesizeVoidAudio({
 
 <div align="center">
 
-**Built with ❤️ using AI-assisted vibe coding - where artificial intelligence meets human creativity**
+**Built with ❤️ using AI-assisted vibe coding**
+
+*Where artificial intelligence meets human creativity*
 
 </div>

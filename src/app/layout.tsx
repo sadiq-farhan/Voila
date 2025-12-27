@@ -1,8 +1,8 @@
-
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next"
+import { DevToolDetector } from '@/components/devtool-detector';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://voila.farhansadiq.dev/'),
@@ -104,6 +104,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <DevToolDetector />
         {children}
         <footer className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm py-2 px-4 text-center">
           <p className="text-xs text-muted-foreground/70">

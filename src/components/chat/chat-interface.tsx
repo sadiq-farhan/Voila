@@ -57,24 +57,35 @@ export default function ChatInterface() {
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 
   const [chatCount] = useState(Number(secureLocalStorage.getItem('chatCount')) || 0);
-  const [apiKey, setApiKey] = useState(secureLocalStorage.getItem('geminiApiKey') || `${process.env.NEXT_PUBLIC_GEMINI_API_KEY}`);
+  const [apiKey, setApiKey] = useState<string | undefined>(() => {
+    const stored = secureLocalStorage.getItem('groqApiKey');
+    const envKey = process.env.GROQ_API_KEY;
+    return (stored as string) || envKey || undefined;
+  });
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
 
   const scrollToBottom = React.useCallback(() => {
     if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: 'smooth',
+      // Use requestAnimationFrame for smoother scrolling
+      requestAnimationFrame(() => {
+        if (scrollAreaRef.current) {
+          scrollAreaRef.current.scrollTo({
+            top: scrollAreaRef.current.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
       });
     }
   }, []);
 
   // Scroll to bottom when messages change
   React.useEffect(() => {
-    const timeoutId = setTimeout(scrollToBottom, 100);
+    scrollToBottom();
+    // Also scroll after a short delay to ensure content is rendered
+    const timeoutId = setTimeout(scrollToBottom, 150);
     return () => clearTimeout(timeoutId);
-  }, [messages.length, scrollToBottom]);
+  }, [messages, scrollToBottom]);
 
   React.useEffect(() => {
     const count = Number(secureLocalStorage.getItem('chatCount')) || 0;
@@ -83,10 +94,11 @@ export default function ChatInterface() {
     }
   }, [apiKey]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input || isLoading) return;
+    if (!input.trim() || isLoading) return;
 
+    // Check if API key is required after 7 chats
     if ((Number(secureLocalStorage.getItem('chatCount')) || 0) >= 7 && !apiKey) {
       setIsModalOpen(true);
       return;
@@ -115,12 +127,12 @@ export default function ChatInterface() {
 
 
     try {
-      const { text, audioDataUri } = await getAIResponse(currentInput, apiKey as string);
+      // Only pass apiKey if it's defined and not empty
+      const { text } = await getAIResponse(currentInput, apiKey || undefined);
       const aiMessage: Message = {
         id: crypto.randomUUID(),
         role: 'ai',
         text,
-        audioDataUri,
       };
       setMessages((prev) => [...prev.filter((m) => m.role !== 'status'), aiMessage]);
       secureLocalStorage.setItem('chatCount', String(chatCount + 1));
@@ -147,7 +159,7 @@ export default function ChatInterface() {
   const handleApiKeySubmit = React.useCallback((key: string) => {
     setApiKey(key);
     setIsModalOpen(false);
-    secureLocalStorage.setItem('geminiApiKey', key);
+    secureLocalStorage.setItem('groqApiKey', key);
   }, []);
 
   return (
@@ -156,8 +168,8 @@ export default function ChatInterface() {
         isOpen={isModalOpen}
         onSubmit={handleApiKeySubmit}
       />
-      <Card className="w-full h-full max-w-4xl mx-auto flex flex-col premium-card floating-particles rounded-none sm:rounded-lg sm:h-[calc(90vh-3rem)] sm:max-h-[calc(90vh-3rem)]">
-        <CardHeader className="border-b border-border/30 text-center bg-gradient-to-r from-background/50 to-background/30 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4">
+      <Card className="w-full h-screen sm:h-[calc(90vh-3rem)] max-w-4xl mx-auto flex flex-col premium-card floating-particles rounded-none sm:rounded-lg sm:max-h-[calc(90vh-3rem)]">
+        <CardHeader className="border-b border-border/30 text-center bg-gradient-to-r from-background/50 to-background/30 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 flex-shrink-0">
           <div className="flex items-center justify-center gap-2 sm:gap-3">
             <div className="relative consciousness-pulse">
               <Icons.logo className="h-6 w-6 sm:h-8 sm:w-8 text-primary mystical-text" />
@@ -167,7 +179,7 @@ export default function ChatInterface() {
           </div>
           <CardDescription className="font-mono text-xs sm:text-sm text-muted-foreground/80">Singular Intelligence</CardDescription>
         </CardHeader>
-        <CardContent className="flex-1 overflow-hidden p-0 bg-gradient-to-b from-background/30 to-background/10">
+        <CardContent className="flex-1 overflow-hidden p-0 bg-gradient-to-b from-background/30 to-background/10 min-h-0">
           <ScrollArea className="h-full" ref={scrollAreaRef}>
             <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
               {messages.map((m) => (
@@ -176,7 +188,7 @@ export default function ChatInterface() {
             </div>
           </ScrollArea>
         </CardContent>
-        <CardFooter className="p-3 sm:p-4 border-t border-border/30 bg-gradient-to-r from-background/50 to-background/30 backdrop-blur-sm">
+        <CardFooter className="p-3 sm:p-4 border-t border-border/30 bg-gradient-to-r from-background/50 to-background/30 backdrop-blur-sm flex-shrink-0">
           <form
             ref={formRef}
             onSubmit={handleSubmit}
@@ -188,6 +200,7 @@ export default function ChatInterface() {
               onKeyDown={handleKeyDown}
               placeholder="Formulate your primitive query..."
               disabled={isLoading || isModalOpen}
+              autoFocus
               className="flex-1 resize-none min-h-[40px] max-h-[120px] bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-colors mystical-focus text-sm"
               rows={1}
             />

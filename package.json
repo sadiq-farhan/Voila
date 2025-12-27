@@ -12,7 +12,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@genkit-ai/googleai": "^1.15.5",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -34,12 +33,14 @@
     "@radix-ui/react-switch": "^1.2.5",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@tavily/core": "^0.6.3",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
+    "disable-devtool": "^0.3.9",
     "dotenv": "^17.2.1",
     "embla-carousel-react": "^8.6.0",
     "express": "4.21.2",
-    "genkit": "^1.15.5",
+    "groq-sdk": "^0.37.0",
     "import-in-the-middle": "^1.14.2",
     "lucide-react": "^0.536.0",
     "next": "16.1.1",
@@ -54,8 +55,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "require-in-the-middle": "^7.5.2",
-    "sonner": "^2.0.7",
-    "wav": "^1.0.2"
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -69,7 +69,6 @@
     "date-fns": "^4.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
-    "genkit-cli": "^1.15.5",
     "patch-package": "^8.0.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4",
